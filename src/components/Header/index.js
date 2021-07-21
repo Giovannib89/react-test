@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const Header = ({ categories }) => (
+// on récupére onClickZenButton et on lui ajoute ces propTypes
+const Header = ({ categories, onClickZenButton }) => (
   <header className="menu">
     <nav>
       {categories.map(({ route, label }) => (
@@ -15,10 +16,14 @@ const Header = ({ categories }) => (
           {label}
         </a>
       ))}
-      {/* <a className="menu-link menu-link--selected" href="">Accueil</a>
-      <a className="menu-link" href="">React</a>
-      <a className="menu-link" href="">Angular</a> */}
-      <button className="menu-btn" type="button">Activer le mode zen</button>
+      <button
+        className="menu-btn"
+        type="button"
+        // ajout de l'évent avec onClick qui va lancer le mode zen
+        onClick={onClickZenButton}
+      >
+        Activer le mode zen
+      </button>
     </nav>
   </header>
 );
@@ -28,6 +33,8 @@ Header.propTypes = {
     route: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   })).isRequired,
+  // ajout des proptypes , de types fonction
+  onClickZenButton: PropTypes.func.isRequired,
 };
 
 export default Header;
