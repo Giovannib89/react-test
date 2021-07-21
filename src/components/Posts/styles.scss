@@ -5,6 +5,10 @@
   max-width: 800px;
   margin: vars.$gutter auto;
 
+  &--zen {
+    font-size: 1.2em;
+  }
+
   &-title {
     color: vars.$primary-color;
     font-family: vars.$title-font;

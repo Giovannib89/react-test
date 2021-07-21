@@ -5,8 +5,8 @@ import Post from 'src/components/Post';
 
 import './styles.scss';
 
-const Posts = ({ posts }) => (
-  <main className="posts">
+const Posts = ({ posts, isZen }) => (
+  <main className={`posts ${isZen ? 'posts--zen' : ''}`}>
     <h1 className="posts-title">Dev Of Thrones</h1>
     <div className="posts-list">
       {posts.map((post) => (
@@ -28,6 +28,7 @@ Posts.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
   })).isRequired,
+  isZen: PropTypes.bool.isRequired,
 };
 
 export default Posts;
