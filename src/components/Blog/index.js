@@ -59,10 +59,10 @@ const Blog = () => {
 
   // pour exécuter la fonction loadData au 1e rendu du composant, on pouvait le faire
   // avec la méthode de lifecycle des class componentDidMount
-  // , componentDidUpdate, componentWillUnmount
 
   // ici on donne à useEffect un callback qui sera exécuté
-  // au 1e rendu du composant et à chaque update => componentDidMount + componentDidUpdate
+  // au 1e rendu du composant et à chaque update
+  // => componentDidMount + componentDidUpdate
   // //? useEffect(() => {
   //   //? console.log('1e rendu et update du composant');
   //   //? loadData(); => on part en boucle
@@ -70,6 +70,7 @@ const Blog = () => {
 
   // callback exécuté uniquement au 1e rendu du composant
   // il faut mettre un tableau vide en 2e argument de useEffect
+  // => componentDidMount
   // //? useEffect(() => {
   //   //? console.log('1e rendu uniquement');
   //   //? loadData();
@@ -79,6 +80,7 @@ const Blog = () => {
   // SI la valeur de zenMode change. Pour cela on vient placer la valeur à surveiller
   // dans le tableau de dépendance en 2e argument
 
+  // => componentDidMount + componentDidUpdate avec condition
   // //? useEffect(() => {
   //   //? console.log('1e rendu et quand la valeur de loading change');
   //   //? loadData(); => quand zenMode change, on relance loadData : pas bon
