@@ -7,6 +7,8 @@ import Posts from 'src/components/Posts';
 import Footer from 'src/components/Footer';
 import NotFound from 'src/components/NotFound';
 import Spinner from 'src/components/Spinner';
+//  import du composant single
+import Single from 'src/components/Single';
 
 import './styles.scss';
 
@@ -78,6 +80,16 @@ const Blog = () => {
             <Posts posts={getPostsByCategory(label, posts)} isZen={zenMode} />
           </Route>
         ))}
+
+        {/* CLICK SUR UN POST POUR ETRE REDIRIGE VERS LE SINGLE POST */}
+
+        {/* ici je prépare un composant Route qui affichera ses enfants
+        quand l'url aura le path /post/quelque-chose
+        quelque-chose sera une propriété de l'objet "params" de "match"  */}
+        <Route path="/post/:slug">
+          <Single />
+        </Route>
+
         <Route path="/angular">Ne s'affiche pas</Route>
 
         <Redirect from="/jquery" to="/react" />
