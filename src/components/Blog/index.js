@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
+// suppression de useEffect
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import axios from 'axios';
+// suppression de axios
+// import axios from 'axios';
+
+// création du dossier hook dans src et import
+import { useLoadData } from 'src/hooks';
 
 import Header from 'src/components/Header';
 import Posts from 'src/components/Posts';
@@ -12,16 +17,20 @@ import Single from 'src/components/Single';
 import './styles.scss';
 
 const Blog = () => {
+  // mise en place des hooks custom
+  const [posts, postsLoading, postsError] = useLoadData('https://oclock-open-apis.vercel.app/api/blog/posts');
+  const [categories, categoriesLoading, categoriesError] = useLoadData('https://oclock-open-apis.vercel.app/api/blog/categories');
+
   const [zenMode, setZenMode] = useState(false);
 
-  // on passe loading a true pour pouvoir faire le chargement en arrivant sur le site pour évité le bug
-  const [loading, setLoading] = useState(true);
+  // ! Suppression des useState car déplacer dans dossier hook
+  // const [loading, setLoading] = useState(true);
 
-  const [hasError, setHasError] = useState(false);
+  // const [hasError, setHasError] = useState(false);
 
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
 
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
   const toggleZenMode = () => {
     setZenMode(!zenMode);
@@ -35,28 +44,30 @@ const Blog = () => {
     return filteredPosts;
   };
 
-  const loadData = async () => {
-    // on retire setLoading car il est fait au lancement du site
-    // setLoading(true);
+  //! Déplacement de loadata dans le dossier hook
+  // const loadData = async () => {
+  //   setHasError(false);
 
-    setHasError(false);
+  //   try {
+  //     const { data: postsData } = await axios.get('https://oclock-open-apis.vercel.app/api/blog/posts');
+  //     setPosts(postsData);
 
-    try {
-      const { data: postsData } = await axios.get('https://oclock-open-apis.vercel.app/api/blog/posts');
-      setPosts(postsData);
+  //     const { data: categoriesData } = await axios.get('https://oclock-open-apis.vercel.app/api/blog/categories');
+  //     setCategories(categoriesData);
+  //   }
+  //   catch (error) {
+  //     setHasError(true);
+  //   }
+  //   finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-      const { data: categoriesData } = await axios.get('https://oclock-open-apis.vercel.app/api/blog/categories');
-      setCategories(categoriesData);
-    }
-    catch (error) {
-      setHasError(true);
-    }
-    finally {
-      setLoading(false);
-    }
-  };
+  // useEffect(loadData, []);
 
-  useEffect(loadData, []);
+  // const qui va distribuer les data ou les erreur en fonction de la demande
+  const isLoading = categoriesLoading || postsLoading;
+  const hasError = categoriesError || postsError;
 
   return (
     <div className="blog">
@@ -66,11 +77,13 @@ const Blog = () => {
         isZen={zenMode}
       />
 
-      {loading && <Spinner />}
+      {/* modif de loading en isLoading */}
+      {isLoading && <Spinner />}
 
+      {/* aucune modif car on a garder le méme nom */}
       {hasError && <div>Une erreur s'est produite</div>}
 
-      {!loading && !hasError && (
+      {!isLoading && !hasError && (
       <Switch>
         {categories.map(({ route, label }) => (
           <Route
@@ -83,7 +96,6 @@ const Blog = () => {
         ))}
 
         <Route path="/post/:slug">
-          {/* on ajoute le props contenant l'ensemble des data des post */}
           <Single posts={posts} />
         </Route>
 
