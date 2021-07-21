@@ -12,9 +12,7 @@ import './styles.scss';
 const Blog = () => {
   const [zenMode, setZenMode] = useState(false);
 
-  // création d'une fonction qui va changer zenMode du true a false et inversement
   const toggleZenMode = () => {
-    // on utilise setZenMode du useState et on lui met en parametre !zenMode pour avoir l'inverse
     setZenMode(!zenMode);
   };
 
@@ -22,9 +20,9 @@ const Blog = () => {
     <div className="blog">
       <Header
         categories={categoriesData}
-        // on ajoute une props onClickZenButton qui contient
-        //  la fonction qui va faire varier le state
         onClickZenButton={toggleZenMode}
+        //  ajout de la props isZen qui contient l'élément du state zenMode par défault en false
+        isZen={zenMode}
       />
       <Posts posts={postsData} isZen={zenMode} />
       <Footer />
