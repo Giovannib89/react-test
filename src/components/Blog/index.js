@@ -7,7 +7,6 @@ import Posts from 'src/components/Posts';
 import Footer from 'src/components/Footer';
 import NotFound from 'src/components/NotFound';
 import Spinner from 'src/components/Spinner';
-//  import du composant single
 import Single from 'src/components/Single';
 
 import './styles.scss';
@@ -15,7 +14,8 @@ import './styles.scss';
 const Blog = () => {
   const [zenMode, setZenMode] = useState(false);
 
-  const [loading, setLoading] = useState(false);
+  // on passe loading a true pour pouvoir faire le chargement en arrivant sur le site pour évité le bug
+  const [loading, setLoading] = useState(true);
 
   const [hasError, setHasError] = useState(false);
 
@@ -36,7 +36,8 @@ const Blog = () => {
   };
 
   const loadData = async () => {
-    setLoading(true);
+    // on retire setLoading car il est fait au lancement du site
+    // setLoading(true);
 
     setHasError(false);
 
@@ -81,13 +82,9 @@ const Blog = () => {
           </Route>
         ))}
 
-        {/* CLICK SUR UN POST POUR ETRE REDIRIGE VERS LE SINGLE POST */}
-
-        {/* ici je prépare un composant Route qui affichera ses enfants
-        quand l'url aura le path /post/quelque-chose
-        quelque-chose sera une propriété de l'objet "params" de "match"  */}
         <Route path="/post/:slug">
-          <Single />
+          {/* on ajoute le props contenant l'ensemble des data des post */}
+          <Single posts={posts} />
         </Route>
 
         <Route path="/angular">Ne s'affiche pas</Route>
