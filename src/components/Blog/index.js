@@ -14,7 +14,8 @@ import './styles.scss';
 const Blog = () => {
   const [zenMode, setZenMode] = useState(false);
 
-  // on passe loading a true pour pouvoir faire le chargement en arrivant sur le site pour évité le bug
+  // on passe loading a true pour pouvoir faire
+  // le chargement en arrivant sur le site pour évité le bug
   const [loading, setLoading] = useState(true);
 
   const [hasError, setHasError] = useState(false);
