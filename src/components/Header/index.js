@@ -23,7 +23,8 @@ const Header = ({ categories, onClickZenButton, isZen }) => (
         type="button"
         onClick={onClickZenButton}
       >
-        {`${isZen ? 'Désactiver' : 'Activer'} le mode zen`}
+        {/* © François */}
+        {isZen ? 'Désactiver' : 'Activer'} le mode zen
       </button>
     </nav>
   </header>
