@@ -17,16 +17,15 @@ const Blog = () => {
     setZenMode(!zenMode);
   };
 
-  // Création d'une fonction qui va perméttre de faire le trie des data en fonction
-  // de la route , il récupére en paramétre "category.label" ligne 57
-  const getPostsByCategory = (category) => {
-    console.log(category);
-    // eslint-disable-next-line arrow-body-style
-    const filteredPosts = postsData.filter((post) => {
-      return post.category === category;
-    });
+  // on ajoute la props posts qui va nous servir a afficher tout les article pour l'Accueil
+  const getPostsByCategory = (category, posts) => {
+    // on utilise un if qui dit si categori et egal a Accueil
+    if (category === 'Accueil') {
+      // alors nous envoyon tte les datas
+      return posts;
+    }
 
-    console.log(filteredPosts);
+    const filteredPosts = posts.filter((post) => post.category === category);
     return filteredPosts;
   };
 
@@ -37,27 +36,17 @@ const Blog = () => {
         onClickZenButton={toggleZenMode}
         isZen={zenMode}
       />
-      {/*
-        Route est un composant de react-router-dom
-        qui va nous permettre d'afficher du contenu en fonction de l'url
-        quand le pathname de l'url correspond à la props "path" il affiche
-        ses enfants
-      */}
 
-      {/*
-        ici on génère un composant Route par catégorie
-        pour chacun de ses composants, on va mettre en enfant
-        un composant "Posts" avec en props "posts" une liste
-        filtrée de postsData. Filtrée en fonction de category.label
-      */}
-      {/* eslint-disable-next-line arrow-body-style */}
-      {categoriesData.map((category) => {
-        return (
-          <Route exact path={category.route}>
-            <Posts posts={getPostsByCategory(category.label)} isZen={zenMode} />
-          </Route>
-        );
-      })}
+      {/* Ajout d'une key pour chaque route on utilise ici le label et on destructure catégori */}
+      {categoriesData.map(({ route, label }) => (
+        <Route
+          key={label}
+          exact
+          path={route}
+        >
+          <Posts posts={getPostsByCategory(label, postsData)} isZen={zenMode} />
+        </Route>
+      ))}
       <Footer />
     </div>
   );
