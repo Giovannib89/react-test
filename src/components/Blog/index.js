@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-// on importe axios de axios
 import axios from 'axios';
 
 import Header from 'src/components/Header';
@@ -18,7 +17,6 @@ const Blog = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // on rajoute une entrée au state pour la gestion des erreurs
   const [hasError, setHasError] = useState(false);
 
   const [posts, setPosts] = useState([]);
@@ -35,32 +33,27 @@ const Blog = () => {
     return filteredPosts;
   };
 
-  const loadData = () => {
+  // on place async
+  const loadData = async () => {
     setLoading(true);
 
-    // on remet le status d'erreur à false
     setHasError(false);
 
-    //! pour tester tu peux effacer une lettre dans l'url pour créer l'érreur et voir le résulta
-    axios.get('https://oclock-open-apis.vercel.app/api/blog/posts')
-      .then((response) => {
-        // réponse en succès
-        // axios nous renvoie un objet qui structure la réponse
-        console.log(response);
-        // une fois la réponse obtenue, on vient mettre les données dans le state
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        // erreur
-        console.log(error);
-        setHasError(true);
-      })
-      .finally(() => {
-        // always executed
-        console.log('toujours exécuté');
-        // ici je viens retirer le status de loading
-        setLoading(false);
-      });
+    // on place le try catch
+    try {
+      // on place await devant la requete
+      const { data } = await axios.get('https://oclock-open-apis.vercel.app/api/blog/posts');
+      setPosts(data);
+    }
+    catch (error) {
+      // si on rentre dans le catch setHasError passe a true
+      setHasError(true);
+    }
+    finally {
+      // si tous ce passe bien on rentre dans le finally et
+      // on fais passer le spinner a false pour l'arréter
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,11 +66,8 @@ const Blog = () => {
       <button type="button" onClick={loadData}>Load Data</button>
       {loading && <Spinner />}
 
-      {/* si hasError et sur true alors message d'erreur s'affiche */}
       {hasError && <div>Une erreur s'est produite</div>}
 
-      {/* pour que la page s'affiche correctement il faut que 
-      loading et sur false et hasError aussi */}
       {!loading && !hasError && (
       <Switch>
         {categoriesData.map(({ route, label }) => (
