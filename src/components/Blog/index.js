@@ -21,7 +21,6 @@ const Blog = () => {
       <Header
         categories={categoriesData}
         onClickZenButton={toggleZenMode}
-        //  ajout de la props isZen qui contient l'élément du state zenMode par défault en false
         isZen={zenMode}
       />
       <Posts posts={postsData} isZen={zenMode} />

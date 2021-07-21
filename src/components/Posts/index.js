@@ -12,12 +12,7 @@ const Posts = ({ posts, isZen }) => (
       {posts.map((post) => (
         <Post
           key={post.id}
-          // plutôt que venir mettre chaque propriété de l'objet
-          // dans une props, on utilise le spread operator
           {...post}
-          // category={post.category}
-          // title={post.title}
-          // excerpt={post.excerpt}
         />
       ))}
     </div>
