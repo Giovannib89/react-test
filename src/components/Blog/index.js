@@ -8,8 +8,6 @@ import Footer from 'src/components/Footer';
 import NotFound from 'src/components/NotFound';
 import Spinner from 'src/components/Spinner';
 
-// import categoriesData from 'src/data/categories';
-// import postsData from 'src/data/posts';
 import './styles.scss';
 
 const Blog = () => {
@@ -36,18 +34,14 @@ const Blog = () => {
   };
 
   const loadData = async () => {
-    // console.log('loadData');
-
     setLoading(true);
 
     setHasError(false);
 
     try {
-      // on renome data en postsData
       const { data: postsData } = await axios.get('https://oclock-open-apis.vercel.app/api/blog/posts');
       setPosts(postsData);
 
-      // on ajoute la requete axios pour categories et on renome data en categoriezdata
       const { data: categoriesData } = await axios.get('https://oclock-open-apis.vercel.app/api/blog/categories');
       setCategories(categoriesData);
     }
@@ -64,7 +58,6 @@ const Blog = () => {
   return (
     <div className="blog">
       <Header
-        // on retire categoriesData pour méttre categories de la requete
         categories={categories}
         onClickZenButton={toggleZenMode}
         isZen={zenMode}
@@ -76,7 +69,6 @@ const Blog = () => {
 
       {!loading && !hasError && (
       <Switch>
-        {/* on retire categoriesData pour méttre categories de la requete pour le map */}
         {categories.map(({ route, label }) => (
           <Route
             key={label}

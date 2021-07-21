@@ -16,7 +16,8 @@
     width: 50%;
   }
 
-  .posts--zen & {
+  // ajout de la classe --single pour le nouveau composant
+  .posts--zen &, &--single {
     width: 100%;
   }
 
