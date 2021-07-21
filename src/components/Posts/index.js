@@ -5,16 +5,21 @@ import Post from 'src/components/Post';
 
 import './styles.scss';
 
-const Posts = ({ post }) => (
+const Posts = ({ posts }) => (
   <main className="posts">
     <h1 className="posts-title">Dev Of Thrones</h1>
     <div className="posts-list">
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {posts.map((post) => (
+        <Post
+          key={post.id}
+          // plutôt que venir mettre chaque propriété de l'objet
+          // dans une props, on utilise le spread operator
+          {...post}
+          // category={post.category}
+          // title={post.title}
+          // excerpt={post.excerpt}
+        />
+      ))}
     </div>
   </main>
 );
@@ -22,9 +27,6 @@ const Posts = ({ post }) => (
 Posts.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    category: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    excerpt: PropTypes.string.isRequired,
   })).isRequired,
 };
 
