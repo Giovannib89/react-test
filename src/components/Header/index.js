@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const Header = () => (
+const Header = ({ categories }) => (
   <header className="menu">
     <nav>
       <a className="menu-link menu-link--selected" href="">Accueil</a>
@@ -12,5 +13,12 @@ const Header = () => (
     </nav>
   </header>
 );
+
+Header.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    route: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 export default Header;

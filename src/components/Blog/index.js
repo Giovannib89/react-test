@@ -18,7 +18,7 @@ const Blog = () => {
 
   return (
     <div className="blog">
-      <Header />
+      <Header categories={categoriesData} />
       <Posts />
       <Footer />
     </div>
